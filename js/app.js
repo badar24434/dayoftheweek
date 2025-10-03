@@ -50,15 +50,19 @@
   // Show game screen
   function showGameScreen() {
     setupScreen.classList.remove('active');
-    gameScreen.classList.add('active');
-    timerDisplay.classList.remove('hidden');
+    setTimeout(() => {
+      gameScreen.classList.add('active');
+      timerDisplay.classList.remove('d-none');
+    }, 300);
   }
 
   // Show setup screen
   function showSetupScreen() {
     gameScreen.classList.remove('active');
-    setupScreen.classList.add('active');
-    timerDisplay.classList.add('hidden');
+    setTimeout(() => {
+      setupScreen.classList.add('active');
+      timerDisplay.classList.add('d-none');
+    }, 300);
     stopTimer();
   }
 
@@ -107,9 +111,13 @@
   // Show correct feedback
   function showCorrectFeedback(button) {
     button.classList.add('correct');
-    feedback.textContent = `✓ Correct! It was ${dayNames[currentDate.getDay()]}`;
-    feedback.className = 'feedback correct';
-    feedback.classList.remove('hidden');
+    const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+    feedback.innerHTML = `
+      <i class="bi bi-check-circle-fill me-2"></i>
+      <strong>Correct!</strong> It was ${dayNames[currentDate.getDay()]}. 
+      <br><small class="mt-1 d-block">Time: ${elapsed} seconds</small>
+    `;
+    feedback.className = 'alert alert-success d-block';
   }
 
   // Show wrong feedback
@@ -118,9 +126,13 @@
     const correctButton = document.querySelector(`[data-day="${correctDay}"]`);
     correctButton.classList.add('correct');
     
-    feedback.textContent = `✗ Wrong! The correct answer was ${dayNames[correctDay]}`;
-    feedback.className = 'feedback wrong';
-    feedback.classList.remove('hidden');
+    const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+    feedback.innerHTML = `
+      <i class="bi bi-x-circle-fill me-2"></i>
+      <strong>Wrong!</strong> The correct answer was ${dayNames[correctDay]}. 
+      <br><small class="mt-1 d-block">Time: ${elapsed} seconds</small>
+    `;
+    feedback.className = 'alert alert-danger d-block';
   }
 
   // Handle Next button
@@ -167,15 +179,16 @@
   }
 
   function hideFeedback() {
-    feedback.classList.add('hidden');
+    feedback.classList.add('d-none');
+    feedback.classList.remove('d-block');
   }
 
   function showNextControls() {
-    nextControls.classList.remove('hidden');
+    nextControls.classList.remove('d-none');
   }
 
   function hideNextControls() {
-    nextControls.classList.add('hidden');
+    nextControls.classList.add('d-none');
   }
 
   // Utility functions
