@@ -189,8 +189,18 @@
 
   // Handle Next button
   function handleNext() {
-    generateNewDate();
-    startTimer();
+    if (dateMode === 'random') {
+      generateNewDate();
+      startTimer();
+    } else {
+      // In custom mode, show input for new date
+      handleNewDate();
+    }
+  }
+  
+  // Handle New Date button (for custom mode)
+  function handleNewDate() {
+    showSetupScreen();
   }
 
   // Handle Back button
@@ -241,6 +251,77 @@
 
   function hideNextControls() {
     nextControls.classList.add('d-none');
+  }
+  
+  // Handle mode change
+  function handleModeChange() {
+    dateMode = document.querySelector('input[name="date-mode"]:checked').value;
+    
+    if (dateMode === 'random') {
+      randomSettings.classList.remove('d-none');
+      customSettings.classList.add('d-none');
+    } else {
+      randomSettings.classList.add('d-none');
+      customSettings.classList.remove('d-none');
+    }
+  }
+  
+  // Validate custom date
+  function validateCustomDate() {
+    const year = parseInt(customYear.value);
+    const month = parseInt(customMonth.value);
+    const day = parseInt(customDay.value);
+    
+    // Reset validation classes
+    customYear.classList.remove('is-invalid', 'is-valid');
+    customMonth.classList.remove('is-invalid', 'is-valid');
+    customDay.classList.remove('is-invalid', 'is-valid');
+    
+    let isValid = true;
+    
+    // Validate year
+    if (year < 1 || year > 9999) {
+      customYear.classList.add('is-invalid');
+      isValid = false;
+    } else {
+      customYear.classList.add('is-valid');
+    }
+    
+    // Validate month
+    if (month < 1 || month > 12) {
+      customMonth.classList.add('is-invalid');
+      isValid = false;
+    } else {
+      customMonth.classList.add('is-valid');
+    }
+    
+    // Validate day
+    const daysInMonth = getDaysInMonth(year, month);
+    if (day < 1 || day > daysInMonth) {
+      customDay.classList.add('is-invalid');
+      isValid = false;
+    } else {
+      customDay.classList.add('is-valid');
+    }
+    
+    return isValid;
+  }
+  
+  // Update mode display in game screen
+  function updateModeDisplay() {
+    if (dateMode === 'random') {
+      modeIcon.className = 'bi bi-shuffle fs-3';
+      modeBadge.innerHTML = '<i class="bi bi-shuffle me-1"></i>Random';
+      modeBadge.className = 'badge bg-primary rounded-pill';
+      nextBtnText.textContent = 'Next Random Date';
+      newDateBtn.classList.add('d-none');
+    } else {
+      modeIcon.className = 'bi bi-calendar-plus fs-3';
+      modeBadge.innerHTML = '<i class="bi bi-calendar-plus me-1"></i>Custom';
+      modeBadge.className = 'badge bg-info rounded-pill';
+      nextBtnText.textContent = 'Enter New Date';
+      newDateBtn.classList.remove('d-none');
+    }
   }
 
   // Utility functions
