@@ -1,0 +1,80 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Day of the Week Practice</title>
+  <link rel="stylesheet" href="css/style.css">
+  <meta name="description" content="Practice identifying the day of the week for random dates">
+
+  <meta property="og:title" content="Day of the Week Practice">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+  <meta property="og:image:alt" content="">
+
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.png">
+
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#2563eb">
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>Day of the Week Practice</h1>
+      <div id="timer" class="timer hidden">Time: <span id="time">0.0</span>s</div>
+    </header>
+
+    <main id="main-content">
+      <!-- Setup Screen -->
+      <div id="setup-screen" class="screen active">
+        <h2>Select Year Range</h2>
+        <div class="year-selector">
+          <label for="year-range">Choose a century:</label>
+          <select id="year-range" class="select-box">
+            <option value="1400-1499">1400–1499</option>
+            <option value="1500-1599">1500–1599</option>
+            <option value="1600-1699">1600–1699</option>
+            <option value="1700-1799">1700–1799</option>
+            <option value="1800-1899">1800–1899</option>
+            <option value="1900-1999" selected>1900–1999</option>
+            <option value="2000-2099">2000–2099</option>
+            <option value="2100-2199">2100–2199</option>
+            <option value="2200-2299">2200–2299</option>
+          </select>
+        </div>
+        <button id="start-btn" class="btn btn-primary btn-large">Start Practice</button>
+      </div>
+
+      <!-- Game Screen -->
+      <div id="game-screen" class="screen">
+        <div id="date-display" class="date-display"></div>
+        
+        <div id="day-buttons" class="day-buttons">
+          <button class="btn btn-day" data-day="1">Monday</button>
+          <button class="btn btn-day" data-day="2">Tuesday</button>
+          <button class="btn btn-day" data-day="3">Wednesday</button>
+          <button class="btn btn-day" data-day="4">Thursday</button>
+          <button class="btn btn-day" data-day="5">Friday</button>
+          <button class="btn btn-day" data-day="6">Saturday</button>
+          <button class="btn btn-day" data-day="0">Sunday</button>
+        </div>
+
+        <div id="feedback" class="feedback hidden"></div>
+        
+        <div id="next-controls" class="next-controls hidden">
+          <button id="next-btn" class="btn btn-primary">Next Date</button>
+          <button id="back-btn" class="btn btn-secondary">Back to Setup</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+
+</html>
