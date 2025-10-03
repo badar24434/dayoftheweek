@@ -19,9 +19,26 @@
   const feedback = document.getElementById('feedback');
   const nextControls = document.getElementById('next-controls');
   const nextBtn = document.getElementById('next-btn');
+  const nextBtnText = document.getElementById('next-btn-text');
+  const newDateBtn = document.getElementById('new-date-btn');
   const backBtn = document.getElementById('back-btn');
   const timerDisplay = document.getElementById('timer');
   const timeSpan = document.getElementById('time');
+  
+  // Mode selection elements
+  const randomModeBtn = document.getElementById('random-mode');
+  const customModeBtn = document.getElementById('custom-mode');
+  const randomSettings = document.getElementById('random-settings');
+  const customSettings = document.getElementById('custom-settings');
+  
+  // Custom date elements
+  const customMonth = document.getElementById('custom-month');
+  const customDay = document.getElementById('custom-day');
+  const customYear = document.getElementById('custom-year');
+  
+  // Mode indicators
+  const modeIcon = document.getElementById('mode-icon');
+  const modeBadge = document.getElementById('mode-badge');
 
   // Day names
   const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -30,18 +47,41 @@
   function init() {
     startBtn.addEventListener('click', handleStart);
     nextBtn.addEventListener('click', handleNext);
+    newDateBtn.addEventListener('click', handleNewDate);
     backBtn.addEventListener('click', handleBack);
+    
+    // Mode selection
+    randomModeBtn.addEventListener('change', handleModeChange);
+    customModeBtn.addEventListener('change', handleModeChange);
+    
+    // Custom date validation
+    customMonth.addEventListener('change', validateCustomDate);
+    customDay.addEventListener('change', validateCustomDate);
+    customYear.addEventListener('change', validateCustomDate);
     
     dayButtons.forEach(btn => {
       btn.addEventListener('click', handleDayClick);
     });
+    
+    // Set default current date for custom mode
+    const now = new Date();
+    customMonth.value = now.getMonth() + 1;
+    customDay.value = now.getDate();
+    customYear.value = now.getFullYear();
   }
 
   // Handle Start button
   function handleStart() {
-    const range = yearRangeSelect.value;
-    const [min, max] = range.split('-').map(Number);
-    yearRange = { min, max };
+    if (dateMode === 'random') {
+      const range = yearRangeSelect.value;
+      const [min, max] = range.split('-').map(Number);
+      yearRange = { min, max };
+    } else {
+      // Validate custom date before starting
+      if (!validateCustomDate()) {
+        return;
+      }
+    }
     
     showGameScreen();
     generateNewDate();
@@ -67,15 +107,26 @@
     stopTimer();
   }
 
-  // Generate random date
+  // Generate new date based on mode
   function generateNewDate() {
-    const year = getRandomInt(yearRange.min, yearRange.max);
-    const month = getRandomInt(1, 12);
-    const daysInMonth = getDaysInMonth(year, month);
-    const day = getRandomInt(1, daysInMonth);
+    if (dateMode === 'random') {
+      const year = getRandomInt(yearRange.min, yearRange.max);
+      const month = getRandomInt(1, 12);
+      const daysInMonth = getDaysInMonth(year, month);
+      const day = getRandomInt(1, daysInMonth);
+      
+      currentDate = new Date(year, month - 1, day);
+    } else {
+      // Use custom date
+      const year = parseInt(customYear.value);
+      const month = parseInt(customMonth.value);
+      const day = parseInt(customDay.value);
+      
+      currentDate = new Date(year, month - 1, day);
+    }
     
-    currentDate = new Date(year, month - 1, day);
     displayDate();
+    updateModeDisplay();
     resetButtons();
     hideFeedback();
     hideNextControls();
