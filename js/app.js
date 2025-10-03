@@ -7,6 +7,7 @@
   let currentDate = null;
   let startTime = null;
   let timerInterval = null;
+  let dateMode = 'random'; // 'random' or 'custom'
 
   // DOM Elements
   const setupScreen = document.getElementById('setup-screen');
