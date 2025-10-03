@@ -13,6 +13,8 @@
   const setupScreen = document.getElementById('setup-screen');
   const gameScreen = document.getElementById('game-screen');
   const yearRangeSelect = document.getElementById('year-range');
+  const randomYearMin = document.getElementById('random-year-min');
+  const randomYearMax = document.getElementById('random-year-max');
   const startBtn = document.getElementById('start-btn');
   const dateDisplay = document.getElementById('date-display');
   const dayButtons = document.querySelectorAll('.btn-day');
@@ -49,32 +51,66 @@
     nextBtn.addEventListener('click', handleNext);
     newDateBtn.addEventListener('click', handleNewDate);
     backBtn.addEventListener('click', handleBack);
-    
+
     // Mode selection
     randomModeBtn.addEventListener('change', handleModeChange);
     customModeBtn.addEventListener('change', handleModeChange);
-    
+
     // Custom date validation
     customMonth.addEventListener('change', validateCustomDate);
     customDay.addEventListener('change', validateCustomDate);
     customYear.addEventListener('change', validateCustomDate);
-    
+
+    // Year range logic for random mode
+    yearRangeSelect.addEventListener('change', handleCenturyChange);
+    randomYearMin.addEventListener('input', handleYearInputChange);
+    randomYearMax.addEventListener('input', handleYearInputChange);
+
     dayButtons.forEach(btn => {
       btn.addEventListener('click', handleDayClick);
     });
-    
+
     // Set default current date for custom mode
     const now = new Date();
     customMonth.value = now.getMonth() + 1;
     customDay.value = now.getDate();
     customYear.value = now.getFullYear();
+
+    // Initialize year range for random mode
+    handleCenturyChange();
+  }
+
+  // When the century changes, update min/max for year inputs
+  function handleCenturyChange() {
+    const [min, max] = yearRangeSelect.value.split('-').map(Number);
+    randomYearMin.min = min;
+    randomYearMin.max = max;
+    randomYearMax.min = min;
+    randomYearMax.max = max;
+    if (parseInt(randomYearMin.value) < min || parseInt(randomYearMin.value) > max) randomYearMin.value = min;
+    if (parseInt(randomYearMax.value) > max || parseInt(randomYearMax.value) < min) randomYearMax.value = max;
+    if (parseInt(randomYearMin.value) > parseInt(randomYearMax.value)) randomYearMin.value = randomYearMax.value;
+    if (parseInt(randomYearMax.value) < parseInt(randomYearMin.value)) randomYearMax.value = randomYearMin.value;
+  }
+
+  // Keep min <= max and both within the selected century
+  function handleYearInputChange() {
+    let min = parseInt(randomYearMin.value);
+    let max = parseInt(randomYearMax.value);
+    if (min > max) randomYearMax.value = min;
+    if (max < min) randomYearMin.value = max;
   }
 
   // Handle Start button
   function handleStart() {
     if (dateMode === 'random') {
-      const range = yearRangeSelect.value;
-      const [min, max] = range.split('-').map(Number);
+      const [centuryMin, centuryMax] = yearRangeSelect.value.split('-').map(Number);
+      let min = parseInt(randomYearMin.value);
+      let max = parseInt(randomYearMax.value);
+      // Clamp to century
+      min = Math.max(centuryMin, Math.min(centuryMax, min));
+      max = Math.max(centuryMin, Math.min(centuryMax, max));
+      if (min > max) min = max;
       yearRange = { min, max };
     } else {
       // Validate custom date before starting
@@ -82,7 +118,7 @@
         return;
       }
     }
-    
+
     showGameScreen();
     generateNewDate();
     startTimer();
