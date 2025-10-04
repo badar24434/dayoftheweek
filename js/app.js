@@ -696,21 +696,7 @@
   function hideNextControls() {
     nextControls.classList.add('d-none');
   }
-  
-  // Handle mode change
-  function handleModeChange() {
-    dateMode = document.querySelector('input[name="date-mode"]:checked').value;
-    
-    if (dateMode === 'random') {
-      randomSettings.classList.remove('d-none');
-      customSettings.classList.add('d-none');
-    } else {
-      randomSettings.classList.add('d-none');
-      customSettings.classList.remove('d-none');
-    }
-  }
-  
-  // Validate custom date
+  // Validation Functions
   function validateCustomDate() {
     const year = parseInt(customYear.value);
     const month = parseInt(customMonth.value);
@@ -749,23 +735,6 @@
     }
     
     return isValid;
-  }
-  
-  // Update mode display in game screen
-  function updateModeDisplay() {
-    if (dateMode === 'random') {
-      modeIcon.className = 'bi bi-shuffle fs-3';
-      modeBadge.innerHTML = '<i class="bi bi-shuffle me-1"></i>Random';
-      modeBadge.className = 'badge bg-primary rounded-pill';
-      nextBtnText.textContent = 'Next Random Date';
-      newDateBtn.classList.add('d-none');
-    } else {
-      modeIcon.className = 'bi bi-calendar-plus fs-3';
-      modeBadge.innerHTML = '<i class="bi bi-calendar-plus me-1"></i>Custom';
-      modeBadge.className = 'badge bg-info rounded-pill';
-      nextBtnText.textContent = 'Enter New Date';
-      newDateBtn.classList.remove('d-none');
-    }
   }
 
   // Utility functions
