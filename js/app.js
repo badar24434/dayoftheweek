@@ -472,25 +472,24 @@
     }
   }
 
-  // Show correct feedback
-  function showCorrectFeedback(button) {
+  function showCorrectFeedback(button, questionTime) {
     button.classList.add('correct');
-    const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+    const elapsed = (questionTime / 1000).toFixed(1);
+    
     feedback.innerHTML = `
       <i class="bi bi-check-circle-fill me-2"></i>
-      <strong>Correct!</strong> It was ${dayNames[currentDate.getDay()]}. 
+      <strong>Correct!</strong> It was ${dayNames[gameState.currentDate.getDay()]}. 
       <br><small class="mt-1 d-block">Time: ${elapsed} seconds</small>
     `;
     feedback.className = 'alert alert-success d-block';
   }
 
-  // Show wrong feedback
-  function showWrongFeedback(button, correctDay) {
+  function showWrongFeedback(button, correctDay, questionTime) {
     button.classList.add('wrong');
     const correctButton = document.querySelector(`[data-day="${correctDay}"]`);
     correctButton.classList.add('correct');
     
-    const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+    const elapsed = (questionTime / 1000).toFixed(1);
     feedback.innerHTML = `
       <i class="bi bi-x-circle-fill me-2"></i>
       <strong>Wrong!</strong> The correct answer was ${dayNames[correctDay]}. 
@@ -499,24 +498,41 @@
     feedback.className = 'alert alert-danger d-block';
   }
 
-  // Handle Next button
+  function showTimeUpFeedback() {
+    const correctDay = gameState.currentDate.getDay();
+    const correctButton = document.querySelector(`[data-day="${correctDay}"]`);
+    correctButton.classList.add('correct');
+    
+    feedback.innerHTML = `
+      <i class="bi bi-hourglass-bottom me-2"></i>
+      <strong>Time's Up!</strong> The correct answer was ${dayNames[correctDay]}. 
+      <br><small class="mt-1 d-block">Try to be faster next time!</small>
+    `;
+    feedback.className = 'alert alert-warning d-block';
+  }
+
   function handleNext() {
-    if (dateMode === 'random') {
-      generateNewDate();
-      startTimer();
+    if (gameState.gameMode === 'endless') {
+      startNewQuestion();
     } else {
-      // In custom mode, show input for new date
-      handleNewDate();
+      startNewQuestion();
     }
   }
   
-  // Handle New Date button (for custom mode)
   function handleNewDate() {
     showSetupScreen();
   }
 
-  // Handle Back button
   function handleBack() {
+    gameState.isGameActive = false;
+    showSetupScreen();
+  }
+
+  function handlePlayAgain() {
+    handleStart();
+  }
+
+  function handleTryDifferent() {
     showSetupScreen();
   }
 
