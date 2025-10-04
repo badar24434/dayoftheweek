@@ -384,7 +384,7 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Mode Selection Styling */
+/* Game Mode Selection Styling */
 .btn-check:checked + .btn-outline-primary {
   background: linear-gradient(135deg, #0d6efd, #0056b3) !important;
   border-color: #0d6efd !important;
@@ -393,7 +393,52 @@ body {
   box-shadow: 0 8px 24px rgba(13, 110, 253, 0.3) !important;
 }
 
-.btn-check + .btn-outline-primary {
+.btn-check:checked + .btn-outline-success {
+  background: linear-gradient(135deg, #198754, #146c43) !important;
+  border-color: #198754 !important;
+  color: white !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(25, 135, 84, 0.3) !important;
+}
+
+.btn-check:checked + .btn-outline-warning {
+  background: linear-gradient(135deg, #ffc107, #e0a800) !important;
+  border-color: #ffc107 !important;
+  color: #000 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 193, 7, 0.3) !important;
+}
+
+.btn-check:checked + .btn-outline-info {
+  background: linear-gradient(135deg, #0dcaf0, #087990) !important;
+  border-color: #0dcaf0 !important;
+  color: white !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(13, 202, 240, 0.3) !important;
+}
+
+.btn-check:checked + .btn-outline-danger {
+  background: linear-gradient(135deg, #dc3545, #b02a37) !important;
+  border-color: #dc3545 !important;
+  color: white !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(220, 53, 69, 0.3) !important;
+}
+
+.btn-check:checked + .btn-outline-secondary {
+  background: linear-gradient(135deg, #6c757d, #545b62) !important;
+  border-color: #6c757d !important;
+  color: white !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(108, 117, 125, 0.3) !important;
+}
+
+.btn-check + .btn-outline-primary,
+.btn-check + .btn-outline-success,
+.btn-check + .btn-outline-warning,
+.btn-check + .btn-outline-info,
+.btn-check + .btn-outline-danger,
+.btn-check + .btn-outline-secondary {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
