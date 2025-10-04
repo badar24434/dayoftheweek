@@ -599,12 +599,35 @@
   // Timer Functions
   function startGameTimer() {
     gameState.startTime = Date.now();
+    gameState.pausedTime = 0; // Track total paused time
     timeSpan.textContent = '0.0';
     
     gameState.timerInterval = setInterval(() => {
-      const elapsed = (Date.now() - gameState.startTime) / 1000;
+      const elapsed = (Date.now() - gameState.startTime - gameState.pausedTime) / 1000;
       timeSpan.textContent = elapsed.toFixed(1);
     }, 100);
+  }
+
+  function pauseGameTimer() {
+    if (gameState.timerInterval) {
+      clearInterval(gameState.timerInterval);
+      gameState.timerInterval = null;
+      gameState.pauseStartTime = Date.now(); // Record when pause started
+    }
+  }
+
+  function resumeGameTimer() {
+    if (!gameState.timerInterval && gameState.pauseStartTime) {
+      // Add the paused duration to total paused time
+      gameState.pausedTime += Date.now() - gameState.pauseStartTime;
+      gameState.pauseStartTime = null;
+      
+      // Resume the timer
+      gameState.timerInterval = setInterval(() => {
+        const elapsed = (Date.now() - gameState.startTime - gameState.pausedTime) / 1000;
+        timeSpan.textContent = elapsed.toFixed(1);
+      }, 100);
+    }
   }
 
   function startQuestionTimer() {
