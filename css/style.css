@@ -492,20 +492,91 @@ body {
   box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.1) !important;
 }
 
+/* Progress Bar Styling */
+.progress {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.progress-bar {
+  transition: width 0.6s ease;
+  background: linear-gradient(90deg, #0d6efd, #198754) !important;
+}
+
+/* Score Badges */
+.badge {
+  backdrop-filter: blur(10px);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* Time Challenge Bar */
+#time-challenge-bar .progress-bar {
+  transition: width 0.1s linear;
+  background: linear-gradient(90deg, #dc3545, #ffc107) !important;
+}
+
+#time-challenge-bar .progress-bar[style*="width: 0"] {
+  background: #dc3545 !important;
+}
+
+/* Results Screen Styling */
+#results-screen .card-body {
+  animation: celebrationBounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes celebrationBounce {
+  0% { 
+    opacity: 0;
+    transform: translateY(50px) scale(0.8);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-10px) scale(1.05);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Stat Cards in Results */
+.row .col-6 > div {
+  transition: all 0.3s ease;
+}
+
+.row .col-6 > div:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
 /* Animation for mode transitions */
 #random-settings,
-#custom-settings {
+#custom-settings,
+#timed-settings {
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
 }
 
 #random-settings.fade-out,
-#custom-settings.fade-out {
+#custom-settings.fade-out,
+#timed-settings.fade-out {
   opacity: 0;
   transform: translateY(-20px);
   max-height: 0;
   margin: 0;
   padding: 0;
+}
+
+/* Keyboard Navigation Indicator */
+.btn-day::after {
+  content: attr(data-day);
+  position: absolute;
+  top: 4px;
+  right: 8px;
+  font-size: 0.7em;
+  opacity: 0.6;
+  pointer-events: none;
 }
 
 /* Info button styling */
