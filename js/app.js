@@ -22,7 +22,8 @@
     isGameActive: false,
     totalGameTime: 0,
     pausedTime: 0,
-    pauseStartTime: null
+    pauseStartTime: null,
+    questionHistory: [] // Track each question's details
   };
 
   // Game Mode Configurations
@@ -311,6 +312,7 @@
     gameState.gameStartTime = Date.now();
     gameState.pausedTime = 0;
     gameState.pauseStartTime = null;
+    gameState.questionHistory = [];
 
     updateGameConfiguration();
     showGameScreen();
@@ -477,11 +479,24 @@
     disableButtons();
     
     const questionTime = Date.now() - gameState.questionStartTime;
+    const isCorrect = selectedDay === correctDay;
+    
+    // Record question details
+    const questionRecord = {
+      questionNumber: gameState.currentQuestionIndex + 1,
+      date: new Date(gameState.currentDate),
+      correctAnswer: dayNames[correctDay],
+      userAnswer: dayNames[selectedDay],
+      isCorrect: isCorrect,
+      timeSpent: questionTime / 1000, // Convert to seconds
+      wasTimedOut: false
+    };
+    gameState.questionHistory.push(questionRecord);
     
     // Debug logging to help identify the issue
     console.log(`Selected: ${selectedDay}, Correct: ${correctDay}, Date: ${gameState.currentDate}, Day name: ${dayNames[correctDay]}`);
     
-    if (selectedDay === correctDay) {
+    if (isCorrect) {
       gameState.correctAnswers++;
       showCorrectFeedback(e.target, questionTime);
     } else {
@@ -518,6 +533,21 @@
 
   function handleTimeUp() {
     if (!gameState.isGameActive) return;
+    
+    const correctDay = gameState.currentDate.getDay();
+    const questionTime = Date.now() - gameState.questionStartTime;
+    
+    // Record timed-out question details
+    const questionRecord = {
+      questionNumber: gameState.currentQuestionIndex + 1,
+      date: new Date(gameState.currentDate),
+      correctAnswer: dayNames[correctDay],
+      userAnswer: 'Time Up',
+      isCorrect: false,
+      timeSpent: questionTime / 1000,
+      wasTimedOut: true
+    };
+    gameState.questionHistory.push(questionRecord);
     
     // Treat time up as wrong answer
     gameState.wrongAnswers++;
