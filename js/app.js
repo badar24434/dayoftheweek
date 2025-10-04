@@ -407,21 +407,69 @@
     modeBadge.className = `badge ${badgeClass} rounded-pill`;
   }
 
-  // Handle day button click
   function handleDayClick(e) {
+    if (!gameState.isGameActive) return;
+
     const selectedDay = parseInt(e.target.dataset.day);
-    const correctDay = currentDate.getDay();
+    const correctDay = gameState.currentDate.getDay();
     
-    stopTimer();
+    stopQuestionTimer();
     disableButtons();
     
+    const questionTime = Date.now() - gameState.questionStartTime;
+    
     if (selectedDay === correctDay) {
-      showCorrectFeedback(e.target);
+      gameState.correctAnswers++;
+      showCorrectFeedback(e.target, questionTime);
     } else {
-      showWrongFeedback(e.target, correctDay);
+      gameState.wrongAnswers++;
+      showWrongFeedback(e.target, correctDay, questionTime);
     }
     
-    showNextControls();
+    gameState.currentQuestionIndex++;
+    
+    // Check if game should end
+    if (shouldEndGame()) {
+      setTimeout(() => {
+        endGame();
+      }, 2000);
+    } else {
+      showNextControls();
+    }
+  }
+
+  function shouldEndGame() {
+    // Endless mode never ends automatically
+    if (gameState.gameMode === 'endless') {
+      return false;
+    }
+    
+    // Custom practice mode ends after one question
+    if (gameState.gameMode === 'custom-practice') {
+      return true;
+    }
+    
+    // Check if we've reached the question limit
+    return gameState.currentQuestionIndex >= gameState.totalQuestions;
+  }
+
+  function handleTimeUp() {
+    if (!gameState.isGameActive) return;
+    
+    // Treat time up as wrong answer
+    gameState.wrongAnswers++;
+    gameState.currentQuestionIndex++;
+    
+    disableButtons();
+    showTimeUpFeedback();
+    
+    if (shouldEndGame()) {
+      setTimeout(() => {
+        endGame();
+      }, 2000);
+    } else {
+      showNextControls();
+    }
   }
 
   // Show correct feedback
