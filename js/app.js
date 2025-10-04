@@ -30,8 +30,8 @@
     challenge: { questions: 20, timeLimit: null, name: 'Challenge Mode' },
     endless: { questions: Infinity, timeLimit: null, name: 'Endless Mode' },
     timed: { 
-      speed: { questions: 10, timeLimit: 40000, name: 'Speed Challenge' }, // 40 seconds per question
-      blitz: { questions: 10, timeLimit: 20000, name: 'Blitz Challenge' }   // 20 seconds per question
+      speed: { questions: 10, timeLimit: 30000, name: 'Speed Challenge' }, // 30 seconds per question
+      blitz: { questions: 10, timeLimit: 10000, name: 'Blitz Challenge' }   // 10 seconds per question
     },
     'custom-practice': { questions: 1, timeLimit: null, name: 'Custom Date Practice' }
   };
@@ -59,6 +59,9 @@
   const customYear = document.getElementById('custom-year');
   
   // Game screen elements
+  // Speed Mode custom question count
+  const speedModeQuestionCountRow = document.getElementById('speed-mode-question-count-row');
+  const speedModeQuestionCount = document.getElementById('speed-mode-question-count');
   const startBtn = document.getElementById('start-btn');
   const dateDisplay = document.getElementById('date-display');
   const dayButtons = document.querySelectorAll('.btn-day');
@@ -109,6 +112,28 @@
 
   // Setup all event listeners
   function setupEventListeners() {
+    // Show/hide custom question count for Speed Mode
+    timedModeButtons.forEach(btn => {
+      btn.addEventListener('change', handleSpeedModeQuestionCountVisibility);
+    });
+    // Validate and clamp input
+    if (speedModeQuestionCount) {
+      speedModeQuestionCount.addEventListener('input', () => {
+        let val = parseInt(speedModeQuestionCount.value);
+        if (isNaN(val) || val < 1) val = 1;
+        if (val > 100) val = 100;
+        speedModeQuestionCount.value = val;
+      });
+    }
+  function handleSpeedModeQuestionCountVisibility() {
+    // Only show if Speed Mode is selected
+    const selectedType = document.querySelector('input[name="timed-mode-type"]:checked')?.value || 'speed';
+    if (selectedType === 'speed') {
+      speedModeQuestionCountRow.style.display = '';
+    } else {
+      speedModeQuestionCountRow.style.display = 'none';
+    }
+  }
     // Setup screen events
     startBtn.addEventListener('click', handleStart);
     
@@ -185,13 +210,21 @@
   function handleTimedModeChange() {
     const selectedType = document.querySelector('input[name="timed-mode-type"]:checked')?.value || 'speed';
     gameState.timedModeType = selectedType;
+    handleSpeedModeQuestionCountVisibility();
     updateGameConfiguration();
   }
 
   function updateGameConfiguration() {
     if (gameState.gameMode === 'timed') {
       const config = gameModeConfigs.timed[gameState.timedModeType];
-      gameState.totalQuestions = config.questions;
+      if (gameState.timedModeType === 'speed' && speedModeQuestionCount) {
+        let val = parseInt(speedModeQuestionCount.value);
+        if (isNaN(val) || val < 1) val = 1;
+        if (val > 100) val = 100;
+        gameState.totalQuestions = val;
+      } else {
+        gameState.totalQuestions = config.questions;
+      }
       gameState.questionTimeLimit = config.timeLimit;
     } else {
       const config = gameModeConfigs[gameState.gameMode];
