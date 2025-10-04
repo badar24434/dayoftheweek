@@ -154,25 +154,80 @@
     handleCenturyChange();
   }
 
-  // When the century changes, update min/max for year inputs
+  // Event Handlers
+  function handleGameModeChange() {
+    const selectedMode = document.querySelector('input[name="game-mode"]:checked')?.value || 'quick';
+    gameState.gameMode = selectedMode;
+
+    // Show/hide timed settings
+    if (selectedMode === 'timed') {
+      timedSettings.classList.remove('d-none');
+      handleTimedModeChange();
+    } else {
+      timedSettings.classList.add('d-none');
+    }
+
+    // Show/hide custom date settings
+    if (selectedMode === 'custom-practice') {
+      gameState.dateMode = 'custom';
+      customSettings.classList.remove('d-none');
+      randomSettings.classList.add('d-none');
+    } else {
+      gameState.dateMode = 'random';
+      customSettings.classList.add('d-none');
+      randomSettings.classList.remove('d-none');
+    }
+
+    // Update total questions based on mode
+    updateGameConfiguration();
+  }
+
+  function handleTimedModeChange() {
+    const selectedType = document.querySelector('input[name="timed-mode-type"]:checked')?.value || 'speed';
+    gameState.timedModeType = selectedType;
+    updateGameConfiguration();
+  }
+
+  function updateGameConfiguration() {
+    if (gameState.gameMode === 'timed') {
+      const config = gameModeConfigs.timed[gameState.timedModeType];
+      gameState.totalQuestions = config.questions;
+      gameState.questionTimeLimit = config.timeLimit;
+    } else {
+      const config = gameModeConfigs[gameState.gameMode];
+      gameState.totalQuestions = config.questions;
+      gameState.questionTimeLimit = config.timeLimit;
+    }
+  }
+
   function handleCenturyChange() {
     const [min, max] = yearRangeSelect.value.split('-').map(Number);
     randomYearMin.min = min;
     randomYearMin.max = max;
     randomYearMax.min = min;
     randomYearMax.max = max;
-    if (parseInt(randomYearMin.value) < min || parseInt(randomYearMin.value) > max) randomYearMin.value = min;
-    if (parseInt(randomYearMax.value) > max || parseInt(randomYearMax.value) < min) randomYearMax.value = max;
-    if (parseInt(randomYearMin.value) > parseInt(randomYearMax.value)) randomYearMin.value = randomYearMax.value;
-    if (parseInt(randomYearMax.value) < parseInt(randomYearMin.value)) randomYearMax.value = randomYearMin.value;
+    
+    if (parseInt(randomYearMin.value) < min || parseInt(randomYearMin.value) > max) {
+      randomYearMin.value = min;
+    }
+    if (parseInt(randomYearMax.value) > max || parseInt(randomYearMax.value) < min) {
+      randomYearMax.value = max;
+    }
+    
+    handleYearInputChange();
   }
 
-  // Keep min <= max and both within the selected century
   function handleYearInputChange() {
     let min = parseInt(randomYearMin.value);
     let max = parseInt(randomYearMax.value);
+    
     if (min > max) randomYearMax.value = min;
     if (max < min) randomYearMin.value = max;
+    
+    gameState.yearRange = { 
+      min: Math.min(min, max), 
+      max: Math.max(min, max) 
+    };
   }
 
   // Handle Start button
