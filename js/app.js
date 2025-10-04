@@ -97,41 +97,60 @@
   const playAgainBtn = document.getElementById('play-again-btn');
   const tryDifferentBtn = document.getElementById('try-different-btn');
 
-  // Day names
+  // Constants
   const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-  // Initialize
+  // Initialize Application
   function init() {
-    startBtn.addEventListener('click', handleStart);
-    nextBtn.addEventListener('click', handleNext);
-    newDateBtn.addEventListener('click', handleNewDate);
-    backBtn.addEventListener('click', handleBack);
+    setupEventListeners();
+    initializeDefaults();
+    handleGameModeChange(); // Set initial state
+  }
 
-    // Mode selection
-    randomModeBtn.addEventListener('change', handleModeChange);
-    customModeBtn.addEventListener('change', handleModeChange);
+  // Setup all event listeners
+  function setupEventListeners() {
+    // Setup screen events
+    startBtn.addEventListener('click', handleStart);
+    
+    // Game mode selection
+    gameModeButtons.forEach(btn => {
+      btn.addEventListener('change', handleGameModeChange);
+    });
+    
+    // Timed mode selection
+    timedModeButtons.forEach(btn => {
+      btn.addEventListener('change', handleTimedModeChange);
+    });
+
+    // Year range controls
+    yearRangeSelect.addEventListener('change', handleCenturyChange);
+    randomYearMin.addEventListener('input', handleYearInputChange);
+    randomYearMax.addEventListener('input', handleYearInputChange);
 
     // Custom date validation
     customMonth.addEventListener('change', validateCustomDate);
     customDay.addEventListener('change', validateCustomDate);
     customYear.addEventListener('change', validateCustomDate);
 
-    // Year range logic for random mode
-    yearRangeSelect.addEventListener('change', handleCenturyChange);
-    randomYearMin.addEventListener('input', handleYearInputChange);
-    randomYearMax.addEventListener('input', handleYearInputChange);
-
+    // Game screen events
     dayButtons.forEach(btn => {
       btn.addEventListener('click', handleDayClick);
     });
+    nextBtn.addEventListener('click', handleNext);
+    newDateBtn.addEventListener('click', handleNewDate);
+    backBtn.addEventListener('click', handleBack);
 
-    // Set default current date for custom mode
+    // Results screen events
+    playAgainBtn.addEventListener('click', handlePlayAgain);
+    tryDifferentBtn.addEventListener('click', handleTryDifferent);
+  }
+
+  // Initialize default values
+  function initializeDefaults() {
     const now = new Date();
     customMonth.value = now.getMonth() + 1;
     customDay.value = now.getDate();
     customYear.value = now.getFullYear();
-
-    // Initialize year range for random mode
     handleCenturyChange();
   }
 
