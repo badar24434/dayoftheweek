@@ -102,6 +102,7 @@
   const finalAccuracy = document.getElementById('final-accuracy');
   const finalTime = document.getElementById('final-time');
   const performanceMessage = document.getElementById('performance-message');
+  const questionHistory = document.getElementById('question-history');
   const playAgainBtn = document.getElementById('play-again-btn');
   const tryDifferentBtn = document.getElementById('try-different-btn');
 
