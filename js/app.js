@@ -737,7 +737,7 @@
     return isValid;
   }
 
-  // Utility functions
+  // Utility Functions
   function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
@@ -746,6 +746,35 @@
     return new Date(year, month, 0).getDate();
   }
 
-  // Start the app
+  // Keyboard Navigation Support
+  document.addEventListener('keydown', (e) => {
+    if (!gameState.isGameActive) return;
+
+    // Number keys 0-6 for day selection
+    if (e.key >= '0' && e.key <= '6') {
+      e.preventDefault();
+      const dayIndex = parseInt(e.key);
+      const button = document.querySelector(`[data-day="${dayIndex}"]`);
+      if (button && !button.disabled) {
+        button.click();
+      }
+    }
+    
+    // Enter key for next question
+    if (e.key === 'Enter' && !nextControls.classList.contains('d-none')) {
+      e.preventDefault();
+      if (nextBtn.style.display !== 'none') {
+        handleNext();
+      }
+    }
+    
+    // Escape key to go back
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      handleBack();
+    }
+  });
+
+  // Initialize the application
   init();
 })();
