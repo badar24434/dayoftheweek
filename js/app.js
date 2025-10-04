@@ -673,7 +673,12 @@
 
   function endGame() {
     gameState.isGameActive = false;
-    gameState.totalGameTime = Date.now() - gameState.gameStartTime;
+    // Calculate total game time excluding paused time
+    gameState.totalGameTime = Date.now() - gameState.gameStartTime - (gameState.pausedTime || 0);
+    // If currently paused, subtract the current pause duration
+    if (gameState.pauseStartTime) {
+      gameState.totalGameTime -= (Date.now() - gameState.pauseStartTime);
+    }
     stopAllTimers();
     
     if (gameState.gameMode === 'custom-practice') {
