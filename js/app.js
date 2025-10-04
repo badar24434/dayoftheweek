@@ -351,15 +351,60 @@
     wrongCount.textContent = gameState.wrongAnswers;
   }
 
-  // Display date
   function displayDate() {
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 
                    'July', 'August', 'September', 'October', 'November', 'December'];
-    const day = currentDate.getDate();
-    const month = months[currentDate.getMonth()];
-    const year = currentDate.getFullYear();
+    const day = gameState.currentDate.getDate();
+    const month = months[gameState.currentDate.getMonth()];
+    const year = gameState.currentDate.getFullYear();
     
     dateDisplay.textContent = `${month} ${day}, ${year}`;
+  }
+
+  function updateModeDisplay() {
+    let icon, badge, badgeClass;
+    
+    switch (gameState.gameMode) {
+      case 'quick':
+        icon = 'bi-lightning';
+        badge = '<i class="bi bi-lightning me-1"></i>Quick';
+        badgeClass = 'bg-success';
+        break;
+      case 'standard':
+        icon = 'bi-star';
+        badge = '<i class="bi bi-star me-1"></i>Standard';
+        badgeClass = 'bg-primary';
+        break;
+      case 'challenge':
+        icon = 'bi-fire';
+        badge = '<i class="bi bi-fire me-1"></i>Challenge';
+        badgeClass = 'bg-warning';
+        break;
+      case 'endless':
+        icon = 'bi-infinity';
+        badge = '<i class="bi bi-infinity me-1"></i>Endless';
+        badgeClass = 'bg-info';
+        break;
+      case 'timed':
+        icon = 'bi-stopwatch';
+        const timeConfig = gameModeConfigs.timed[gameState.timedModeType];
+        badge = `<i class="bi bi-stopwatch me-1"></i>${timeConfig.name}`;
+        badgeClass = 'bg-danger';
+        break;
+      case 'custom-practice':
+        icon = 'bi-calendar-plus';
+        badge = '<i class="bi bi-calendar-plus me-1"></i>Custom';
+        badgeClass = 'bg-secondary';
+        break;
+      default:
+        icon = 'bi-shuffle';
+        badge = '<i class="bi bi-shuffle me-1"></i>Practice';
+        badgeClass = 'bg-primary';
+    }
+
+    modeIcon.className = `${icon} fs-3`;
+    modeBadge.innerHTML = badge;
+    modeBadge.className = `badge ${badgeClass} rounded-pill`;
   }
 
   // Handle day button click
