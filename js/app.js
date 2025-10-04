@@ -775,6 +775,64 @@
     resultSubtitle.textContent = subtitle;
     performanceMessage.innerHTML = `<i class="bi bi-star-fill me-2"></i>${message}`;
     performanceMessage.className = `alert ${messageClass} border-0 mb-4`;
+    
+    // Display question history
+    displayQuestionHistory();
+  }
+
+  function displayQuestionHistory() {
+    if (!gameState.questionHistory.length) {
+      questionHistory.innerHTML = '<p class="text-muted text-center mb-0">No questions answered yet.</p>';
+      return;
+    }
+
+    const historyHTML = gameState.questionHistory.map(q => {
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
+                     'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const dateStr = `${months[q.date.getMonth()]} ${q.date.getDate()}, ${q.date.getFullYear()}`;
+      
+      const statusIcon = q.wasTimedOut ? 'bi-hourglass-bottom text-warning' :
+                        q.isCorrect ? 'bi-check-circle-fill text-success' : 'bi-x-circle-fill text-danger';
+      
+      const statusBg = q.wasTimedOut ? 'bg-warning bg-opacity-10 border-warning' :
+                      q.isCorrect ? 'bg-success bg-opacity-10 border-success' : 'bg-danger bg-opacity-10 border-danger';
+      
+      const userAnswerDisplay = q.wasTimedOut ? 
+        '<span class="text-warning fw-semibold">Time Up</span>' :
+        q.isCorrect ? 
+          `<span class="text-success fw-semibold">${q.userAnswer}</span>` :
+          `<span class="text-danger fw-semibold">${q.userAnswer}</span>`;
+
+      return `
+        <div class="border ${statusBg} border-opacity-25 rounded-3 p-3 mb-2">
+          <div class="d-flex justify-content-between align-items-start">
+            <div class="flex-grow-1">
+              <div class="d-flex align-items-center mb-2">
+                <i class="${statusIcon} me-2"></i>
+                <strong class="me-2">Q${q.questionNumber}:</strong>
+                <span class="text-dark">${dateStr}</span>
+              </div>
+              <div class="row g-2 small">
+                <div class="col-sm-4">
+                  <span class="text-muted">Your Answer:</span><br>
+                  ${userAnswerDisplay}
+                </div>
+                <div class="col-sm-4">
+                  <span class="text-muted">Correct:</span><br>
+                  <span class="fw-semibold">${q.correctAnswer}</span>
+                </div>
+                <div class="col-sm-4">
+                  <span class="text-muted">Time:</span><br>
+                  <span class="fw-semibold">${q.timeSpent.toFixed(1)}s</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    questionHistory.innerHTML = historyHTML;
   }
 
   // UI Helper Functions
