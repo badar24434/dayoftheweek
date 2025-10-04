@@ -133,7 +133,7 @@
                   <label class="btn btn-outline-danger w-100 py-2" for="speed-mode">
                     <i class="bi bi-speedometer2 d-block mb-1"></i>
                     <small class="fw-semibold">Speed Mode</small>
-                    <tiny class="d-block text-muted" style="font-size:0.7em;">30s per question</tiny>
+                    <tiny class="d-block text-muted" style="font-size:0.7em;">40s per question</tiny>
                   </label>
                 </div>
                 <div class="col-6">
@@ -141,8 +141,16 @@
                   <label class="btn btn-outline-danger w-100 py-2" for="blitz-mode">
                     <i class="bi bi-lightning-charge d-block mb-1"></i>
                     <small class="fw-semibold">Blitz Mode</small>
-                    <tiny class="d-block text-muted" style="font-size:0.7em;">10s per question</tiny>
+                    <tiny class="d-block text-muted" style="font-size:0.7em;">20s per question</tiny>
                   </label>
+                </div>
+              </div>
+              <!-- Custom question count for Speed Mode -->
+              <div id="speed-mode-question-count-row" class="row g-2 align-items-end mt-3" style="display:none;">
+                <div class="col-12">
+                  <label for="speed-mode-question-count" class="form-label small text-muted mb-1">Number of Questions (Speed Mode)</label>
+                  <input type="number" id="speed-mode-question-count" class="form-control" min="1" max="100" value="10">
+                  <small class="text-muted mt-1 d-block">Set how many questions you want for Speed Mode (1-100).</small>
                 </div>
               </div>
             </div>
