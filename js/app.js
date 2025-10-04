@@ -30,8 +30,8 @@
     challenge: { questions: 20, timeLimit: null, name: 'Challenge Mode' },
     endless: { questions: Infinity, timeLimit: null, name: 'Endless Mode' },
     timed: { 
-      speed: { questions: 10, timeLimit: 10000, name: 'Speed Challenge' }, // 10 seconds per question
-      blitz: { questions: 10, timeLimit: 5000, name: 'Blitz Challenge' }   // 5 seconds per question
+      speed: { questions: 10, timeLimit: 40000, name: 'Speed Challenge' }, // 40 seconds per question
+      blitz: { questions: 10, timeLimit: 20000, name: 'Blitz Challenge' }   // 20 seconds per question
     },
     'custom-practice': { questions: 1, timeLimit: null, name: 'Custom Date Practice' }
   };
