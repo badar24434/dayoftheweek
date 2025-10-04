@@ -20,7 +20,9 @@
     questionTimerInterval: null,
     questionTimeLimit: null,
     isGameActive: false,
-    totalGameTime: 0
+    totalGameTime: 0,
+    pausedTime: 0,
+    pauseStartTime: null
   };
 
   // Game Mode Configurations
