@@ -1,20 +1,64 @@
-// Day of the Week Practice App
+// Enhanced Day of the Week Practice App with Multiple Game Modes
 (function() {
   'use strict';
 
-  // State
-  let yearRange = { min: 1900, max: 1999 };
-  let currentDate = null;
-  let startTime = null;
-  let timerInterval = null;
-  let dateMode = 'random'; // 'random' or 'custom'
+  // Game State
+  let gameState = {
+    gameMode: 'quick', // 'quick', 'standard', 'challenge', 'endless', 'timed', 'custom-practice'
+    timedModeType: 'speed', // 'speed', 'blitz'
+    dateMode: 'random',
+    yearRange: { min: 1900, max: 1999 },
+    currentDate: null,
+    currentQuestionIndex: 0,
+    totalQuestions: 5,
+    correctAnswers: 0,
+    wrongAnswers: 0,
+    startTime: null,
+    questionStartTime: null,
+    gameStartTime: null,
+    timerInterval: null,
+    questionTimerInterval: null,
+    questionTimeLimit: null,
+    isGameActive: false,
+    totalGameTime: 0
+  };
 
-  // DOM Elements
+  // Game Mode Configurations
+  const gameModeConfigs = {
+    quick: { questions: 5, timeLimit: null, name: 'Quick Practice' },
+    standard: { questions: 10, timeLimit: null, name: 'Standard Practice' },
+    challenge: { questions: 20, timeLimit: null, name: 'Challenge Mode' },
+    endless: { questions: Infinity, timeLimit: null, name: 'Endless Mode' },
+    timed: { 
+      speed: { questions: 10, timeLimit: 10000, name: 'Speed Challenge' }, // 10 seconds per question
+      blitz: { questions: 10, timeLimit: 5000, name: 'Blitz Challenge' }   // 5 seconds per question
+    },
+    'custom-practice': { questions: 1, timeLimit: null, name: 'Custom Date Practice' }
+  };
+
+  // DOM Elements - Setup Screen
   const setupScreen = document.getElementById('setup-screen');
   const gameScreen = document.getElementById('game-screen');
+  const resultsScreen = document.getElementById('results-screen');
+  
+  // Game mode elements
+  const gameModeButtons = document.querySelectorAll('input[name="game-mode"]');
+  const timedSettings = document.getElementById('timed-settings');
+  const timedModeButtons = document.querySelectorAll('input[name="timed-mode-type"]');
+  
+  // Date source elements
   const yearRangeSelect = document.getElementById('year-range');
   const randomYearMin = document.getElementById('random-year-min');
   const randomYearMax = document.getElementById('random-year-max');
+  const randomSettings = document.getElementById('random-settings');
+  const customSettings = document.getElementById('custom-settings');
+  
+  // Custom date elements
+  const customMonth = document.getElementById('custom-month');
+  const customDay = document.getElementById('custom-day');
+  const customYear = document.getElementById('custom-year');
+  
+  // Game screen elements
   const startBtn = document.getElementById('start-btn');
   const dateDisplay = document.getElementById('date-display');
   const dayButtons = document.querySelectorAll('.btn-day');
@@ -24,23 +68,34 @@
   const nextBtnText = document.getElementById('next-btn-text');
   const newDateBtn = document.getElementById('new-date-btn');
   const backBtn = document.getElementById('back-btn');
+  
+  // Progress and timer elements
+  const progressSection = document.getElementById('progress-section');
+  const progressText = document.getElementById('progress-text');
+  const progressBar = document.getElementById('progress-bar');
+  const correctCount = document.getElementById('correct-count');
+  const wrongCount = document.getElementById('wrong-count');
+  const timeChallengeBar = document.getElementById('time-challenge-bar');
+  const timeRemaining = document.getElementById('time-remaining');
+  const timeBar = document.getElementById('time-bar');
   const timerDisplay = document.getElementById('timer');
   const timeSpan = document.getElementById('time');
-  
-  // Mode selection elements
-  const randomModeBtn = document.getElementById('random-mode');
-  const customModeBtn = document.getElementById('custom-mode');
-  const randomSettings = document.getElementById('random-settings');
-  const customSettings = document.getElementById('custom-settings');
-  
-  // Custom date elements
-  const customMonth = document.getElementById('custom-month');
-  const customDay = document.getElementById('custom-day');
-  const customYear = document.getElementById('custom-year');
   
   // Mode indicators
   const modeIcon = document.getElementById('mode-icon');
   const modeBadge = document.getElementById('mode-badge');
+  
+  // Results screen elements
+  const resultIcon = document.getElementById('result-icon');
+  const resultTitle = document.getElementById('result-title');
+  const resultSubtitle = document.getElementById('result-subtitle');
+  const finalCorrect = document.getElementById('final-correct');
+  const finalWrong = document.getElementById('final-wrong');
+  const finalAccuracy = document.getElementById('final-accuracy');
+  const finalTime = document.getElementById('final-time');
+  const performanceMessage = document.getElementById('performance-message');
+  const playAgainBtn = document.getElementById('play-again-btn');
+  const tryDifferentBtn = document.getElementById('try-different-btn');
 
   // Day names
   const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
