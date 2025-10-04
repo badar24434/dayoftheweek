@@ -88,6 +88,14 @@ textarea {
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-feature-settings: 'cv01', 'cv03', 'cv04', 'cv11';
+  overflow-x: hidden;
+}
+
+/* Main container adjustments */
+.container-fluid.min-vh-100 {
+  min-height: calc(100vh - 2rem);
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 /* Background Gradient */
@@ -96,6 +104,7 @@ body {
   background-attachment: fixed;
   min-height: 100vh;
   position: relative;
+  overflow-x: hidden;
 }
 
 .bg-gradient::before {
@@ -112,6 +121,13 @@ body {
 }
 
 /* Navigation Improvements */
+.navbar {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  position: relative;
+  z-index: 1030;
+}
+
 .navbar-brand {
   font-size: 1.5rem;
   font-weight: 700;
@@ -141,6 +157,7 @@ body {
     0 32px 64px rgba(0, 0, 0, 0.15),
     0 0 0 1px rgba(255, 255, 255, 0.05) inset !important;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  max-width: 100%;
 }
 
 .card:hover {
@@ -348,7 +365,7 @@ body {
 /* Responsive Improvements */
 @media (max-width: 768px) {
   .card-body {
-    padding: 2rem !important;
+    padding: 1.5rem !important;
   }
   
   .display-4 {
@@ -357,6 +374,46 @@ body {
   
   .btn-lg {
     padding: 0.75rem 1.5rem !important;
+  }
+  
+  .container-fluid {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  /* Ensure header is visible on mobile */
+  .card-title.h2 {
+    font-size: 1.5rem !important;
+  }
+  
+  /* Reduce spacing on mobile */
+  .mb-4 {
+    margin-bottom: 1.5rem !important;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+  .card-body {
+    padding: 1rem !important;
+  }
+  
+  .card-title.h2 {
+    font-size: 1.3rem !important;
+  }
+  
+  .btn-outline-success,
+  .btn-outline-primary,
+  .btn-outline-warning,
+  .btn-outline-info,
+  .btn-outline-danger,
+  .btn-outline-secondary {
+    padding: 0.5rem 0.25rem !important;
+    font-size: 0.85rem !important;
+  }
+  
+  .mode-select-row .btn-outline-primary small {
+    font-size: 0.8rem !important;
   }
 }
 
