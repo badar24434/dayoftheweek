@@ -260,23 +260,47 @@
     startGameTimer();
   }
 
-  // Show game screen
+  // Screen Navigation
   function showGameScreen() {
     setupScreen.classList.remove('active');
+    resultsScreen.classList.remove('active');
     setTimeout(() => {
       gameScreen.classList.add('active');
       timerDisplay.classList.remove('d-none');
+      
+      // Show progress for non-endless modes
+      if (gameState.gameMode !== 'endless' && gameState.gameMode !== 'custom-practice') {
+        progressSection.classList.remove('d-none');
+      } else {
+        progressSection.classList.add('d-none');
+      }
+      
+      // Show time challenge bar for timed modes
+      if (gameState.questionTimeLimit) {
+        timeChallengeBar.classList.remove('d-none');
+      } else {
+        timeChallengeBar.classList.add('d-none');
+      }
     }, 300);
   }
 
-  // Show setup screen
   function showSetupScreen() {
     gameScreen.classList.remove('active');
+    resultsScreen.classList.remove('active');
     setTimeout(() => {
       setupScreen.classList.add('active');
       timerDisplay.classList.add('d-none');
     }, 300);
-    stopTimer();
+    stopAllTimers();
+  }
+
+  function showResultsScreen() {
+    gameScreen.classList.remove('active');
+    setTimeout(() => {
+      resultsScreen.classList.add('active');
+      timerDisplay.classList.add('d-none');
+      displayResults();
+    }, 300);
   }
 
   // Generate new date based on mode
