@@ -303,29 +303,52 @@
     }, 300);
   }
 
-  // Generate new date based on mode
+  // Game Logic
+  function startNewQuestion() {
+    generateNewDate();
+    updateProgress();
+    resetButtons();
+    hideFeedback();
+    hideNextControls();
+    startQuestionTimer();
+  }
+
   function generateNewDate() {
-    if (dateMode === 'random') {
-      const year = getRandomInt(yearRange.min, yearRange.max);
+    if (gameState.dateMode === 'random') {
+      const year = getRandomInt(gameState.yearRange.min, gameState.yearRange.max);
       const month = getRandomInt(1, 12);
       const daysInMonth = getDaysInMonth(year, month);
       const day = getRandomInt(1, daysInMonth);
       
-      currentDate = new Date(year, month - 1, day);
+      gameState.currentDate = new Date(year, month - 1, day);
     } else {
       // Use custom date
       const year = parseInt(customYear.value);
       const month = parseInt(customMonth.value);
       const day = parseInt(customDay.value);
       
-      currentDate = new Date(year, month - 1, day);
+      gameState.currentDate = new Date(year, month - 1, day);
     }
     
     displayDate();
     updateModeDisplay();
-    resetButtons();
-    hideFeedback();
-    hideNextControls();
+  }
+
+  function updateProgress() {
+    if (gameState.gameMode === 'endless' || gameState.gameMode === 'custom-practice') {
+      return;
+    }
+
+    const current = gameState.currentQuestionIndex + 1;
+    const total = gameState.totalQuestions;
+    const percentage = (gameState.currentQuestionIndex / gameState.totalQuestions) * 100;
+
+    progressText.textContent = `${current} / ${total}`;
+    progressBar.style.width = `${percentage}%`;
+    progressBar.setAttribute('aria-valuenow', percentage);
+    
+    correctCount.textContent = gameState.correctAnswers;
+    wrongCount.textContent = gameState.wrongAnswers;
   }
 
   // Display date
