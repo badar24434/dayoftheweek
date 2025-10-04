@@ -59,25 +59,106 @@
               <p class="text-muted mb-0">Test your ability to identify days from dates</p>
             </div>
 
-            <!-- Date Mode Selection -->
+            <!-- Game Mode Selection -->
             <div class="mb-4">
               <label class="form-label fw-semibold text-dark mb-3">
-                <i class="bi bi-gear me-2"></i>
-                Practice Mode
+                <i class="bi bi-trophy me-2"></i>
+                Game Mode
               </label>
-              <div class="row g-2 mode-select-row">
+              <div class="row g-2 mb-3">
                 <div class="col-6">
-                  <input type="radio" class="btn-check" name="date-mode" id="random-mode" value="random" checked>
-                  <label class="btn btn-outline-primary w-100 py-2" for="random-mode">
-                    <i class="bi bi-shuffle d-block mb-1" style="font-size:1.2rem;"></i>
-                    <small class="fw-semibold">Random Dates</small>
+                  <input type="radio" class="btn-check" name="game-mode" id="quick-mode" value="quick" checked>
+                  <label class="btn btn-outline-success w-100 py-2" for="quick-mode">
+                    <i class="bi bi-lightning d-block mb-1" style="font-size:1.2rem;"></i>
+                    <small class="fw-semibold">Quick Practice</small>
+                    <tiny class="d-block text-muted" style="font-size:0.7em;">5 Questions</tiny>
                   </label>
                 </div>
                 <div class="col-6">
-                  <input type="radio" class="btn-check" name="date-mode" id="custom-mode" value="custom">
-                  <label class="btn btn-outline-primary w-100 py-2" for="custom-mode">
+                  <input type="radio" class="btn-check" name="game-mode" id="standard-mode" value="standard">
+                  <label class="btn btn-outline-primary w-100 py-2" for="standard-mode">
+                    <i class="bi bi-star d-block mb-1" style="font-size:1.2rem;"></i>
+                    <small class="fw-semibold">Standard</small>
+                    <tiny class="d-block text-muted" style="font-size:0.7em;">10 Questions</tiny>
+                  </label>
+                </div>
+              </div>
+              <div class="row g-2 mb-3">
+                <div class="col-6">
+                  <input type="radio" class="btn-check" name="game-mode" id="challenge-mode" value="challenge">
+                  <label class="btn btn-outline-warning w-100 py-2" for="challenge-mode">
+                    <i class="bi bi-fire d-block mb-1" style="font-size:1.2rem;"></i>
+                    <small class="fw-semibold">Challenge</small>
+                    <tiny class="d-block text-muted" style="font-size:0.7em;">20 Questions</tiny>
+                  </label>
+                </div>
+                <div class="col-6">
+                  <input type="radio" class="btn-check" name="game-mode" id="endless-mode" value="endless">
+                  <label class="btn btn-outline-info w-100 py-2" for="endless-mode">
+                    <i class="bi bi-infinity d-block mb-1" style="font-size:1.2rem;"></i>
+                    <small class="fw-semibold">Endless</small>
+                    <tiny class="d-block text-muted" style="font-size:0.7em;">Unlimited</tiny>
+                  </label>
+                </div>
+              </div>
+              <div class="row g-2">
+                <div class="col-6">
+                  <input type="radio" class="btn-check" name="game-mode" id="timed-mode" value="timed">
+                  <label class="btn btn-outline-danger w-100 py-2" for="timed-mode">
+                    <i class="bi bi-stopwatch d-block mb-1" style="font-size:1.2rem;"></i>
+                    <small class="fw-semibold">Time Challenge</small>
+                    <tiny class="d-block text-muted" style="font-size:0.7em;">Beat the Clock</tiny>
+                  </label>
+                </div>
+                <div class="col-6">
+                  <input type="radio" class="btn-check" name="game-mode" id="custom-practice" value="custom-practice">
+                  <label class="btn btn-outline-secondary w-100 py-2" for="custom-practice">
                     <i class="bi bi-calendar-plus d-block mb-1" style="font-size:1.2rem;"></i>
-                    <small class="fw-semibold">Your Own Dates</small>
+                    <small class="fw-semibold">Custom Date</small>
+                    <tiny class="d-block text-muted" style="font-size:0.7em;">Single Date</tiny>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Time Challenge Settings -->
+            <div id="timed-settings" class="mb-4 d-none">
+              <label class="form-label fw-semibold text-dark mb-3">
+                <i class="bi bi-clock me-2"></i>
+                Time Challenge Options
+              </label>
+              <div class="row g-2">
+                <div class="col-6">
+                  <input type="radio" class="btn-check" name="timed-mode-type" id="speed-mode" value="speed" checked>
+                  <label class="btn btn-outline-danger w-100 py-2" for="speed-mode">
+                    <i class="bi bi-speedometer2 d-block mb-1"></i>
+                    <small class="fw-semibold">Speed Mode</small>
+                    <tiny class="d-block text-muted" style="font-size:0.7em;">10s per question</tiny>
+                  </label>
+                </div>
+                <div class="col-6">
+                  <input type="radio" class="btn-check" name="timed-mode-type" id="blitz-mode" value="blitz">
+                  <label class="btn btn-outline-danger w-100 py-2" for="blitz-mode">
+                    <i class="bi bi-lightning-charge d-block mb-1"></i>
+                    <small class="fw-semibold">Blitz Mode</small>
+                    <tiny class="d-block text-muted" style="font-size:0.7em;">5s per question</tiny>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Date Source Selection -->
+            <div class="mb-4">
+              <label class="form-label fw-semibold text-dark mb-3">
+                <i class="bi bi-calendar-range me-2"></i>
+                Date Source
+              </label>
+              <div class="row g-2 mode-select-row">
+                <div class="col-12">
+                  <input type="radio" class="btn-check" name="date-mode" id="random-mode" value="random" checked>
+                  <label class="btn btn-outline-primary w-100 py-2" for="random-mode">
+                    <i class="bi bi-shuffle me-2" style="font-size:1.1rem;"></i>
+                    <small class="fw-semibold">Random Dates from Selected Period</small>
                   </label>
                 </div>
               </div>
