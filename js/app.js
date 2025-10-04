@@ -309,6 +309,8 @@
     gameState.wrongAnswers = 0;
     gameState.isGameActive = true;
     gameState.gameStartTime = Date.now();
+    gameState.pausedTime = 0;
+    gameState.pauseStartTime = null;
 
     updateGameConfiguration();
     showGameScreen();
