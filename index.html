@@ -364,6 +364,65 @@
           </div>
         </div>
 
+        <!-- Results Card -->
+        <div id="results-screen" class="card shadow-lg border-0 screen">
+          <div class="card-body p-5 text-center">
+            <div class="mb-4">
+              <div id="result-icon" class="bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                <i class="bi bi-trophy-fill text-success fs-1"></i>
+              </div>
+              <h2 id="result-title" class="card-title h2 mb-2 text-dark fw-bold">Excellent Work!</h2>
+              <p id="result-subtitle" class="text-muted mb-0">You completed the challenge</p>
+            </div>
+
+            <!-- Final Stats -->
+            <div class="row g-3 mb-4">
+              <div class="col-6">
+                <div class="bg-success bg-opacity-10 rounded-4 p-3 border border-success border-opacity-25">
+                  <div class="fw-bold text-success fs-3" id="final-correct">8</div>
+                  <small class="text-success fw-semibold">Correct</small>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="bg-danger bg-opacity-10 rounded-4 p-3 border border-danger border-opacity-25">
+                  <div class="fw-bold text-danger fs-3" id="final-wrong">2</div>
+                  <small class="text-danger fw-semibold">Wrong</small>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="bg-primary bg-opacity-10 rounded-4 p-3 border border-primary border-opacity-25">
+                  <div class="fw-bold text-primary fs-3" id="final-accuracy">80%</div>
+                  <small class="text-primary fw-semibold">Accuracy</small>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="bg-info bg-opacity-10 rounded-4 p-3 border border-info border-opacity-25">
+                  <div class="fw-bold text-info fs-3" id="final-time">45.2s</div>
+                  <small class="text-info fw-semibold">Total Time</small>
+                </div>
+              </div>
+            </div>
+
+            <!-- Performance Message -->
+            <div id="performance-message" class="alert alert-success border-0 mb-4">
+              <i class="bi bi-star-fill me-2"></i>
+              <strong>Great job!</strong> You're getting better at this!
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="d-flex gap-2 justify-content-center flex-wrap">
+              <button id="play-again-btn" class="btn btn-primary btn-lg px-4 fw-semibold">
+                <i class="bi bi-arrow-clockwise me-2"></i>
+                Play Again
+              </button>
+              <button id="try-different-btn" class="btn btn-outline-primary btn-lg px-4 fw-semibold">
+                <i class="bi bi-gear me-2"></i>
+                Try Different Mode
+              </button>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
