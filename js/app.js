@@ -536,22 +536,54 @@
     showSetupScreen();
   }
 
-  // Timer functions
-  function startTimer() {
-    startTime = Date.now();
+  // Timer Functions
+  function startGameTimer() {
+    gameState.startTime = Date.now();
     timeSpan.textContent = '0.0';
     
-    timerInterval = setInterval(() => {
-      const elapsed = (Date.now() - startTime) / 1000;
+    gameState.timerInterval = setInterval(() => {
+      const elapsed = (Date.now() - gameState.startTime) / 1000;
       timeSpan.textContent = elapsed.toFixed(1);
     }, 100);
   }
 
-  function stopTimer() {
-    if (timerInterval) {
-      clearInterval(timerInterval);
-      timerInterval = null;
+  function startQuestionTimer() {
+    gameState.questionStartTime = Date.now();
+    
+    if (gameState.questionTimeLimit) {
+      let timeLeft = gameState.questionTimeLimit;
+      timeRemaining.textContent = `${(timeLeft / 1000).toFixed(0)}s`;
+      
+      gameState.questionTimerInterval = setInterval(() => {
+        timeLeft -= 100;
+        const seconds = Math.max(0, timeLeft / 1000);
+        timeRemaining.textContent = `${seconds.toFixed(1)}s`;
+        
+        const percentage = (timeLeft / gameState.questionTimeLimit) * 100;
+        timeBar.style.width = `${Math.max(0, percentage)}%`;
+        timeBar.setAttribute('aria-valuenow', Math.max(0, percentage));
+        
+        if (timeLeft <= 0) {
+          clearInterval(gameState.questionTimerInterval);
+          handleTimeUp();
+        }
+      }, 100);
     }
+  }
+
+  function stopQuestionTimer() {
+    if (gameState.questionTimerInterval) {
+      clearInterval(gameState.questionTimerInterval);
+      gameState.questionTimerInterval = null;
+    }
+  }
+
+  function stopAllTimers() {
+    if (gameState.timerInterval) {
+      clearInterval(gameState.timerInterval);
+      gameState.timerInterval = null;
+    }
+    stopQuestionTimer();
   }
 
   // UI helper functions
