@@ -364,6 +364,7 @@
     resetButtons();
     hideFeedback();
     hideNextControls();
+    resumeGameTimer(); // Resume main timer when starting new question
     startQuestionTimer();
   }
 
@@ -468,9 +469,13 @@
     const correctDay = gameState.currentDate.getDay();
     
     stopQuestionTimer();
+    pauseGameTimer(); // Pause main timer after answering
     disableButtons();
     
     const questionTime = Date.now() - gameState.questionStartTime;
+    
+    // Debug logging to help identify the issue
+    console.log(`Selected: ${selectedDay}, Correct: ${correctDay}, Date: ${gameState.currentDate}, Day name: ${dayNames[correctDay]}`);
     
     if (selectedDay === correctDay) {
       gameState.correctAnswers++;
@@ -514,6 +519,7 @@
     gameState.wrongAnswers++;
     gameState.currentQuestionIndex++;
     
+    pauseGameTimer(); // Pause main timer when time is up
     disableButtons();
     showTimeUpFeedback();
     
