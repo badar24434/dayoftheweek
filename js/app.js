@@ -230,27 +230,34 @@
     };
   }
 
-  // Handle Start button
   function handleStart() {
-    if (dateMode === 'random') {
-      const [centuryMin, centuryMax] = yearRangeSelect.value.split('-').map(Number);
-      let min = parseInt(randomYearMin.value);
-      let max = parseInt(randomYearMax.value);
-      // Clamp to century
-      min = Math.max(centuryMin, Math.min(centuryMax, min));
-      max = Math.max(centuryMin, Math.min(centuryMax, max));
-      if (min > max) min = max;
-      yearRange = { min, max };
-    } else {
-      // Validate custom date before starting
+    // Validate inputs based on mode
+    if (gameState.gameMode === 'custom-practice') {
       if (!validateCustomDate()) {
         return;
       }
+    } else {
+      // Update year range for random modes
+      const [centuryMin, centuryMax] = yearRangeSelect.value.split('-').map(Number);
+      let min = parseInt(randomYearMin.value);
+      let max = parseInt(randomYearMax.value);
+      min = Math.max(centuryMin, Math.min(centuryMax, min));
+      max = Math.max(centuryMin, Math.min(centuryMax, max));
+      if (min > max) min = max;
+      gameState.yearRange = { min, max };
     }
 
+    // Initialize game state
+    gameState.currentQuestionIndex = 0;
+    gameState.correctAnswers = 0;
+    gameState.wrongAnswers = 0;
+    gameState.isGameActive = true;
+    gameState.gameStartTime = Date.now();
+
+    updateGameConfiguration();
     showGameScreen();
-    generateNewDate();
-    startTimer();
+    startNewQuestion();
+    startGameTimer();
   }
 
   // Show game screen
