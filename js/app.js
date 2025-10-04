@@ -586,7 +586,75 @@
     stopQuestionTimer();
   }
 
-  // UI helper functions
+  function endGame() {
+    gameState.isGameActive = false;
+    gameState.totalGameTime = Date.now() - gameState.gameStartTime;
+    stopAllTimers();
+    
+    if (gameState.gameMode === 'custom-practice') {
+      // For custom practice, go back to setup instead of showing results
+      setTimeout(() => {
+        showSetupScreen();
+      }, 1000);
+    } else {
+      showResultsScreen();
+    }
+  }
+
+  function displayResults() {
+    const accuracy = gameState.totalQuestions > 0 ? 
+      Math.round((gameState.correctAnswers / (gameState.correctAnswers + gameState.wrongAnswers)) * 100) : 0;
+    const totalTimeSeconds = (gameState.totalGameTime / 1000).toFixed(1);
+
+    // Update result numbers
+    finalCorrect.textContent = gameState.correctAnswers;
+    finalWrong.textContent = gameState.wrongAnswers;
+    finalAccuracy.textContent = `${accuracy}%`;
+    finalTime.textContent = `${totalTimeSeconds}s`;
+
+    // Determine performance level and message
+    let iconClass, iconBg, title, subtitle, message, messageClass;
+
+    if (accuracy >= 90) {
+      iconClass = 'bi-trophy-fill';
+      iconBg = 'bg-warning bg-opacity-10';
+      title = 'Outstanding!';
+      subtitle = 'Perfect performance!';
+      message = '<strong>Incredible!</strong> You\'re a true day-of-the-week master!';
+      messageClass = 'alert-warning';
+    } else if (accuracy >= 80) {
+      iconClass = 'bi-star-fill';
+      iconBg = 'bg-success bg-opacity-10';
+      title = 'Excellent Work!';
+      subtitle = 'Great job on this challenge!';
+      message = '<strong>Well done!</strong> You\'ve got excellent skills!';
+      messageClass = 'alert-success';
+    } else if (accuracy >= 60) {
+      iconClass = 'bi-hand-thumbs-up-fill';
+      iconBg = 'bg-primary bg-opacity-10';
+      title = 'Good Job!';
+      subtitle = 'Nice effort on this round!';
+      message = '<strong>Good work!</strong> Keep practicing to improve even more!';
+      messageClass = 'alert-primary';
+    } else {
+      iconClass = 'bi-arrow-clockwise';
+      iconBg = 'bg-info bg-opacity-10';
+      title = 'Keep Trying!';
+      subtitle = 'Practice makes perfect!';
+      message = '<strong>Don\'t give up!</strong> Every practice session helps you improve!';
+      messageClass = 'alert-info';
+    }
+
+    // Update result display
+    resultIcon.className = iconBg + ' rounded-circle d-inline-flex align-items-center justify-content-center mb-3';
+    resultIcon.querySelector('i').className = iconClass + ' fs-1 text-' + iconBg.split(' ')[0].split('-')[1];
+    resultTitle.textContent = title;
+    resultSubtitle.textContent = subtitle;
+    performanceMessage.innerHTML = `<i class="bi bi-star-fill me-2"></i>${message}`;
+    performanceMessage.className = `alert ${messageClass} border-0 mb-4`;
+  }
+
+  // UI Helper Functions
   function resetButtons() {
     dayButtons.forEach(btn => {
       btn.disabled = false;
@@ -606,6 +674,22 @@
   }
 
   function showNextControls() {
+    if (gameState.gameMode === 'endless') {
+      nextBtn.style.display = 'inline-block';
+      nextBtnText.textContent = 'Next Question';
+    } else if (!shouldEndGame()) {
+      nextBtn.style.display = 'inline-block';
+      nextBtnText.textContent = 'Next Question';
+    } else {
+      nextBtn.style.display = 'none';
+    }
+    
+    if (gameState.gameMode === 'custom-practice') {
+      newDateBtn.classList.remove('d-none');
+    } else {
+      newDateBtn.classList.add('d-none');
+    }
+    
     nextControls.classList.remove('d-none');
   }
 
