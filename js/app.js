@@ -71,6 +71,7 @@
   const blitzModeQuestionCount = document.getElementById('blitz-mode-question-count');
   const startBtn = document.getElementById('start-btn');
   const dateDisplay = document.getElementById('date-display');
+  const questionPrompt = document.getElementById('question-prompt');
   const dayButtons = document.querySelectorAll('.btn-day');
   const feedback = document.getElementById('feedback');
   const nextControls = document.getElementById('next-controls');
@@ -484,9 +485,18 @@
     
     let displayText = `${month} ${day}, ${year}`;
     
+    // Update question prompt based on game mode
+    let promptText = "What day of the week was this?";
+    if (gameState.gameMode === 'leap-year') {
+      promptText = "What day of the week was this leap day?";
+    } else if (gameState.gameMode === 'historical-events') {
+      promptText = "What day of the week was this historical event?";
+    }
+    questionPrompt.textContent = promptText;
+    
     // For historical events mode, show the event description
     if (gameState.gameMode === 'historical-events' && gameState.currentEvent) {
-      dateDisplay.innerHTML = `${displayText}<br><small class="text-muted">${gameState.currentEvent}</small>`;
+      dateDisplay.innerHTML = `${displayText}<br><small class="text-muted fw-semibold">${gameState.currentEvent}</small>`;
     } else {
       dateDisplay.textContent = displayText;
     }
