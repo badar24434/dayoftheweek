@@ -110,6 +110,40 @@
 
   // Constants
   const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  
+  // Historical Events Database
+  const historicalEvents = [
+    { date: new Date(1776, 6, 4), event: "Declaration of Independence signed" },
+    { date: new Date(1492, 9, 12), event: "Columbus reaches the Americas" },
+    { date: new Date(1969, 6, 20), event: "Neil Armstrong lands on the moon" },
+    { date: new Date(1945, 4, 8), event: "V-E Day (End of WWII in Europe)" },
+    { date: new Date(1963, 10, 22), event: "John F. Kennedy assassinated" },
+    { date: new Date(1989, 10, 9), event: "Berlin Wall falls" },
+    { date: new Date(1941, 11, 7), event: "Pearl Harbor attacked" },
+    { date: new Date(1865, 3, 14), event: "Abraham Lincoln assassinated" },
+    { date: new Date(1914, 5, 28), event: "Archduke Franz Ferdinand assassinated" },
+    { date: new Date(1929, 9, 29), event: "Black Tuesday - Stock Market Crash" },
+    { date: new Date(1955, 11, 1), event: "Rosa Parks refuses to give up her seat" },
+    { date: new Date(1963, 7, 28), event: "Martin Luther King Jr. 'I Have a Dream' speech" },
+    { date: new Date(1944, 5, 6), event: "D-Day - Normandy Invasion" },
+    { date: new Date(1945, 7, 6), event: "Atomic bomb dropped on Hiroshima" },
+    { date: new Date(1957, 9, 4), event: "Sputnik 1 launched" },
+    { date: new Date(1961, 3, 12), event: "Yuri Gagarin first human in space" },
+    { date: new Date(1969, 7, 15), event: "Woodstock Festival begins" },
+    { date: new Date(1973, 9, 17), event: "Oil Crisis begins" },
+    { date: new Date(1986, 0, 28), event: "Challenger Space Shuttle disaster" },
+    { date: new Date(1991, 11, 25), event: "Soviet Union dissolves" },
+    { date: new Date(2001, 8, 11), event: "September 11 attacks" },
+    { date: new Date(1933, 0, 30), event: "Adolf Hitler comes to power" },
+    { date: new Date(1917, 10, 7), event: "Russian Revolution begins" },
+    { date: new Date(1906, 3, 18), event: "Great San Francisco Earthquake" },
+    { date: new Date(1912, 3, 14), event: "Titanic sinks" },
+    { date: new Date(1918, 10, 11), event: "World War I ends" },
+    { date: new Date(1953, 4, 29), event: "Edmund Hillary conquers Mount Everest" },
+    { date: new Date(1947, 7, 15), event: "India gains independence" },
+    { date: new Date(1939, 8, 1), event: "Germany invades Poland - WWII begins" },
+    { date: new Date(1804, 11, 2), event: "Napoleon crowns himself Emperor" }
+  ];
 
   // Initialize Application
   function init() {
