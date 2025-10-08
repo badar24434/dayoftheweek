@@ -403,6 +403,11 @@ body {
   .mb-4 {
     margin-bottom: 1.5rem !important;
   }
+  
+  /* Adjust historical event text for medium screens */
+  #date-display small {
+    font-size: 0.9rem !important;
+  }
 }
 
 /* Extra small screens */
