@@ -435,8 +435,15 @@
         gameState.currentDate = new Date(randomLeapYear, 1, 29); // February 29th
       }
     } else if (gameState.gameMode === 'historical-events') {
-      // Use historical events
-      const randomEvent = historicalEvents[getRandomInt(0, historicalEvents.length - 1)];
+      // Filter historical events by selected century/year range
+      const eventsInRange = historicalEvents.filter(event => {
+        const eventYear = event.date.getFullYear();
+        return eventYear >= gameState.yearRange.min && eventYear <= gameState.yearRange.max;
+      });
+      
+      // If no events in selected range, use all historical events
+      const availableEvents = eventsInRange.length > 0 ? eventsInRange : historicalEvents;
+      const randomEvent = availableEvents[getRandomInt(0, availableEvents.length - 1)];
       gameState.currentDate = new Date(randomEvent.date);
       gameState.currentEvent = randomEvent.event;
     } else if (gameState.dateMode === 'random') {
