@@ -253,6 +253,17 @@
       gameState.dateMode = 'custom';
       customSettings.classList.remove('d-none');
       randomSettings.classList.add('d-none');
+    } else if (selectedMode === 'leap-year' || selectedMode === 'historical-events') {
+      // New game modes use special date generation but still show random settings for century selection
+      gameState.dateMode = 'special';
+      customSettings.classList.add('d-none');
+      randomSettings.classList.remove('d-none');
+      
+      // For historical events mode, we might want to update the century selection logic
+      if (selectedMode === 'historical-events') {
+        // Update century selection to reflect available historical events
+        updateCenturyOptionsForHistoricalEvents();
+      }
     } else {
       gameState.dateMode = 'random';
       customSettings.classList.add('d-none');
@@ -1007,6 +1018,12 @@
       }
     }
     return leapYears;
+  }
+  
+  function updateCenturyOptionsForHistoricalEvents() {
+    // For historical events mode, we could highlight centuries with more events
+    // For now, just keep the existing century selection as it allows filtering by time period
+    return;
   }
 
   // Keyboard Navigation Support
