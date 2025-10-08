@@ -301,17 +301,16 @@
       gameState.dateMode = 'custom';
       customSettings.classList.remove('d-none');
       randomSettings.classList.add('d-none');
-    } else if (selectedMode === 'leap-year' || selectedMode === 'historical-events') {
-      // New game modes use special date generation but still show random settings for century selection
+    } else if (selectedMode === 'historical-events') {
+      // Historical events mode doesn't need century selection - uses all events randomly
+      gameState.dateMode = 'special';
+      customSettings.classList.add('d-none');
+      randomSettings.classList.add('d-none');
+    } else if (selectedMode === 'leap-year') {
+      // Leap year mode still needs century selection to find leap years in range
       gameState.dateMode = 'special';
       customSettings.classList.add('d-none');
       randomSettings.classList.remove('d-none');
-      
-      // For historical events mode, we might want to update the century selection logic
-      if (selectedMode === 'historical-events') {
-        // Update century selection to reflect available historical events
-        updateCenturyOptionsForHistoricalEvents();
-      }
     } else {
       gameState.dateMode = 'random';
       customSettings.classList.add('d-none');
@@ -541,9 +540,9 @@
     }
     questionPrompt.textContent = promptText;
     
-    // For historical events mode, show the event description
+    // For historical events mode, show the event description with smaller, subtle styling
     if (gameState.gameMode === 'historical-events' && gameState.currentEvent) {
-      dateDisplay.innerHTML = `${displayText}<br><small class="text-muted fw-semibold">${gameState.currentEvent}</small>`;
+      dateDisplay.innerHTML = `${displayText}<br><small class="text-muted" style="font-size: 0.7rem; font-weight: 400; line-height: 1.3; display: block; margin-top: 8px;">${gameState.currentEvent}</small>`;
     } else {
       dateDisplay.textContent = displayText;
     }
