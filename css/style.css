@@ -368,9 +368,9 @@ body {
   color: #6c757d !important;
   background: none !important;
   -webkit-text-fill-color: #6c757d !important;
-  font-size: 0.7rem !important;
-  font-weight: 400 !important;
-  opacity: 0.8;
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+  opacity: 0.85;
   max-width: 100%;
   word-wrap: break-word;
 }

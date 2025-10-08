@@ -540,9 +540,9 @@
     }
     questionPrompt.textContent = promptText;
     
-    // For historical events mode, show the event description with smaller, subtle styling
+    // For historical events mode, show the event description with larger, more prominent styling
     if (gameState.gameMode === 'historical-events' && gameState.currentEvent) {
-      dateDisplay.innerHTML = `${displayText}<br><small class="text-muted" style="font-size: 0.7rem; font-weight: 400; line-height: 1.3; display: block; margin-top: 8px;">${gameState.currentEvent}</small>`;
+      dateDisplay.innerHTML = `${displayText}<br><small class="text-muted" style="font-size: 1rem; font-weight: 500; line-height: 1.3; display: block; margin-top: 10px;">${gameState.currentEvent}</small>`;
     } else {
       dateDisplay.textContent = displayText;
     }
