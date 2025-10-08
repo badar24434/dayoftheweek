@@ -1076,11 +1076,7 @@
     return leapYears;
   }
   
-  function updateCenturyOptionsForHistoricalEvents() {
-    // For historical events mode, we could highlight centuries with more events
-    // For now, just keep the existing century selection as it allows filtering by time period
-    return;
-  }
+
 
   // Keyboard Navigation Support
   document.addEventListener('keydown', (e) => {

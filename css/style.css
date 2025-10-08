@@ -428,6 +428,16 @@ body {
   .mode-select-row .btn-outline-primary small {
     font-size: 0.8rem !important;
   }
+  
+  /* Smaller historical event text on mobile */
+  #date-display small {
+    font-size: 0.65rem !important;
+    line-height: 1.2 !important;
+  }
+  
+  .display-4 {
+    line-height: 1.1 !important;
+  }
 }
 
 /* Loading States */
