@@ -412,7 +412,22 @@
   }
 
   function generateNewDate() {
-    if (gameState.dateMode === 'random') {
+    if (gameState.gameMode === 'leap-year') {
+      // Generate leap year dates (February 29th) from selected century
+      const leapYears = getLeapYearsInRange(gameState.yearRange.min, gameState.yearRange.max);
+      if (leapYears.length === 0) {
+        // Fallback to a known leap year if no leap years in range
+        gameState.currentDate = new Date(2000, 1, 29);
+      } else {
+        const randomLeapYear = leapYears[getRandomInt(0, leapYears.length - 1)];
+        gameState.currentDate = new Date(randomLeapYear, 1, 29); // February 29th
+      }
+    } else if (gameState.gameMode === 'historical-events') {
+      // Use historical events
+      const randomEvent = historicalEvents[getRandomInt(0, historicalEvents.length - 1)];
+      gameState.currentDate = new Date(randomEvent.date);
+      gameState.currentEvent = randomEvent.event;
+    } else if (gameState.dateMode === 'random') {
       const year = getRandomInt(gameState.yearRange.min, gameState.yearRange.max);
       const month = getRandomInt(1, 12);
       const daysInMonth = getDaysInMonth(year, month);
@@ -961,6 +976,20 @@
 
   function getDaysInMonth(year, month) {
     return new Date(year, month, 0).getDate();
+  }
+  
+  function isLeapYear(year) {
+    return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+  }
+  
+  function getLeapYearsInRange(startYear, endYear) {
+    const leapYears = [];
+    for (let year = startYear; year <= endYear; year++) {
+      if (isLeapYear(year)) {
+        leapYears.push(year);
+      }
+    }
+    return leapYears;
   }
 
   // Keyboard Navigation Support
