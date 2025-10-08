@@ -516,6 +516,16 @@
         badge = '<i class="bi bi-calendar-plus me-1"></i>Custom';
         badgeClass = 'bg-secondary';
         break;
+      case 'leap-year':
+        icon = 'bi-calendar2-week';
+        badge = '<i class="bi bi-calendar2-week me-1"></i>Leap Year';
+        badgeClass = 'bg-success';
+        break;
+      case 'historical-events':
+        icon = 'bi-book';
+        badge = '<i class="bi bi-book me-1"></i>Historical';
+        badgeClass = 'bg-info';
+        break;
       default:
         icon = 'bi-shuffle';
         badge = '<i class="bi bi-shuffle me-1"></i>Practice';
