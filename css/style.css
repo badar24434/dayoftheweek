@@ -429,9 +429,9 @@ body {
     font-size: 0.8rem !important;
   }
   
-  /* Smaller historical event text on mobile */
+  /* Proportional historical event text on mobile */
   #date-display small {
-    font-size: 0.65rem !important;
+    font-size: 0.8rem !important;
     line-height: 1.2 !important;
   }
   
