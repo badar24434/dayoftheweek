@@ -36,7 +36,9 @@
       speed: { questions: 10, timeLimit: 30000, name: 'Speed Challenge' }, // 30 seconds per question
       blitz: { questions: 10, timeLimit: 10000, name: 'Blitz Challenge' }   // 10 seconds per question
     },
-    'custom-practice': { questions: 1, timeLimit: null, name: 'Custom Date Practice' }
+    'custom-practice': { questions: 1, timeLimit: null, name: 'Custom Date Practice' },
+    'leap-year': { questions: 10, timeLimit: null, name: 'Leap Year Challenge' },
+    'historical-events': { questions: 15, timeLimit: null, name: 'Historical Events' }
   };
 
   // DOM Elements - Setup Screen
