@@ -471,7 +471,14 @@
     const month = months[gameState.currentDate.getMonth()];
     const year = gameState.currentDate.getFullYear();
     
-    dateDisplay.textContent = `${month} ${day}, ${year}`;
+    let displayText = `${month} ${day}, ${year}`;
+    
+    // Add event description for historical events mode
+    if (gameState.gameMode === 'historical-events' && gameState.currentEvent) {
+      displayText += `\n(${gameState.currentEvent})`;
+    }
+    
+    dateDisplay.textContent = displayText;
   }
 
   function updateModeDisplay() {
