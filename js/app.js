@@ -143,7 +143,54 @@
     { date: new Date(1953, 4, 29), event: "Edmund Hillary conquers Mount Everest" },
     { date: new Date(1947, 7, 15), event: "India gains independence" },
     { date: new Date(1939, 8, 1), event: "Germany invades Poland - WWII begins" },
-    { date: new Date(1804, 11, 2), event: "Napoleon crowns himself Emperor" }
+    { date: new Date(1804, 11, 2), event: "Napoleon crowns himself Emperor" },
+    { date: new Date(1969, 7, 20), event: "Apollo 11 Moon Landing" },
+    { date: new Date(1989, 11, 25), event: "Velvet Revolution ends in Czechoslovakia" },
+    { date: new Date(1991, 7, 19), event: "Soviet hardliners attempt coup" },
+    { date: new Date(1963, 10, 24), event: "Kennedy-Khrushchev hotline established" },
+    { date: new Date(1945, 7, 9), event: "Atomic bomb dropped on Nagasaki" },
+    { date: new Date(1947, 3, 15), event: "Jackie Robinson breaks baseball color barrier" },
+    { date: new Date(1963, 5, 11), event: "Buddhist crisis in South Vietnam" },
+    { date: new Date(1969, 7, 21), event: "First humans walk on the Moon" },
+    { date: new Date(1989, 0, 20), event: "George H.W. Bush inaugurated as President" },
+    { date: new Date(1985, 2, 11), event: "Mikhail Gorbachev becomes Soviet leader" },
+    { date: new Date(1986, 3, 26), event: "Chernobyl nuclear disaster" },
+    { date: new Date(1990, 9, 3), event: "German reunification" },
+    { date: new Date(1975, 3, 30), event: "Fall of Saigon - End of Vietnam War" },
+    { date: new Date(1963, 7, 5), event: "Nuclear Test Ban Treaty signed" },
+    { date: new Date(1968, 3, 4), event: "Martin Luther King Jr. assassinated" },
+    { date: new Date(1968, 5, 5), event: "Robert F. Kennedy assassinated" },
+    { date: new Date(1974, 7, 9), event: "Richard Nixon resigns presidency" },
+    { date: new Date(1989, 5, 4), event: "Tiananmen Square protests" },
+    { date: new Date(1953, 2, 5), event: "Joseph Stalin dies" },
+    { date: new Date(1962, 9, 14), event: "Cuban Missile Crisis begins" },
+    { date: new Date(1981, 2, 30), event: "Ronald Reagan shot in assassination attempt" },
+    { date: new Date(1994, 3, 27), event: "Nelson Mandela elected President of South Africa" },
+    { date: new Date(1997, 7, 31), event: "Princess Diana dies in car crash" },
+    { date: new Date(2008, 8, 15), event: "Lehman Brothers collapses" },
+    { date: new Date(1990, 1, 11), event: "Nelson Mandela released from prison" },
+    { date: new Date(1961, 3, 17), event: "Bay of Pigs invasion" },
+    { date: new Date(1979, 10, 4), event: "Iran hostage crisis begins" },
+    { date: new Date(1973, 9, 6), event: "Yom Kippur War begins" },
+    { date: new Date(1967, 5, 5), event: "Six-Day War begins" },
+    { date: new Date(1948, 4, 14), event: "Israel declares independence" },
+    { date: new Date(1979, 11, 27), event: "Soviet Union invades Afghanistan" },
+    { date: new Date(1982, 3, 2), event: "Falklands War begins" },
+    { date: new Date(1991, 0, 17), event: "Gulf War begins" },
+    { date: new Date(1989, 5, 15), event: "Gorbachev visits Beijing" },
+    { date: new Date(1987, 9, 19), event: "Black Monday stock market crash" },
+    { date: new Date(1969, 3, 9), event: "Concorde makes first test flight" },
+    { date: new Date(1981, 3, 12), event: "First Space Shuttle Columbia launches" },
+    { date: new Date(1957, 9, 4), event: "Sputnik 1 launches Space Age" },
+    { date: new Date(1969, 2, 2), event: "Concorde makes first supersonic flight" },
+    { date: new Date(1995, 10, 4), event: "Yitzhak Rabin assassinated" },
+    { date: new Date(1993, 1, 26), event: "World Trade Center bombing" },
+    { date: new Date(1995, 3, 19), event: "Oklahoma City bombing" },
+    { date: new Date(1999, 3, 20), event: "Columbine High School massacre" },
+    { date: new Date(2005, 6, 7), event: "London bombings" },
+    { date: new Date(2004, 2, 11), event: "Madrid train bombings" },
+    { date: new Date(1988, 11, 21), event: "Pan Am Flight 103 bombing" },
+    { date: new Date(1972, 8, 5), event: "Munich Olympics massacre" }
   ];
 
   // Initialize Application
@@ -435,15 +482,8 @@
         gameState.currentDate = new Date(randomLeapYear, 1, 29); // February 29th
       }
     } else if (gameState.gameMode === 'historical-events') {
-      // Filter historical events by selected century/year range
-      const eventsInRange = historicalEvents.filter(event => {
-        const eventYear = event.date.getFullYear();
-        return eventYear >= gameState.yearRange.min && eventYear <= gameState.yearRange.max;
-      });
-      
-      // If no events in selected range, use all historical events
-      const availableEvents = eventsInRange.length > 0 ? eventsInRange : historicalEvents;
-      const randomEvent = availableEvents[getRandomInt(0, availableEvents.length - 1)];
+      // Use completely random historical events (ignore century selection)
+      const randomEvent = historicalEvents[getRandomInt(0, historicalEvents.length - 1)];
       gameState.currentDate = new Date(randomEvent.date);
       gameState.currentEvent = randomEvent.event;
     } else if (gameState.dateMode === 'random') {
