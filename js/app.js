@@ -376,7 +376,7 @@
       gameScreen.classList.add('active');
       timerDisplay.classList.remove('d-none');
       
-      // Show progress for non-endless modes
+      // Show progress for modes with finite questions
       if (gameState.gameMode !== 'endless' && gameState.gameMode !== 'custom-practice') {
         progressSection.classList.remove('d-none');
       } else {
@@ -484,12 +484,12 @@
     
     let displayText = `${month} ${day}, ${year}`;
     
-    // Add event description for historical events mode
+    // For historical events mode, show the event description
     if (gameState.gameMode === 'historical-events' && gameState.currentEvent) {
-      displayText += `\n(${gameState.currentEvent})`;
+      dateDisplay.innerHTML = `${displayText}<br><small class="text-muted">${gameState.currentEvent}</small>`;
+    } else {
+      dateDisplay.textContent = displayText;
     }
-    
-    dateDisplay.textContent = displayText;
   }
 
   function updateModeDisplay() {
