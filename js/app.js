@@ -542,7 +542,7 @@
     
     // For historical events mode, show the event description with larger, more prominent styling
     if (gameState.gameMode === 'historical-events' && gameState.currentEvent) {
-      dateDisplay.innerHTML = `${displayText}<br><small class="text-muted" style="font-size: 1rem; font-weight: 500; line-height: 1.3; display: block; margin-top: 10px;">${gameState.currentEvent}</small>`;
+      dateDisplay.innerHTML = `${displayText}<br><small class="text-muted" style="font-size: 1.5rem; font-weight: 600; line-height: 1.4; display: block; margin-top: 12px;">${gameState.currentEvent}</small>`;
     } else {
       dateDisplay.textContent = displayText;
     }
