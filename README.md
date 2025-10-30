@@ -7,6 +7,9 @@
 
 ![Day of the Week Practice](https://img.shields.io/badge/Status-Active-success)
 
+### Demo Link
+- [Try the game yourself!](https://dayoftheweek.vercel.app/)
+
 ## 🌟 Features
 
 ### 🎮 Multiple Game Modes
