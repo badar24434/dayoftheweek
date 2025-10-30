@@ -77,6 +77,51 @@
    ```
    The optimized files will be in the `dist` folder.
 
+### 🚢 Deployment
+
+#### Deploy to Vercel
+
+The easiest way to deploy this project is using Vercel:
+
+1. **Push to GitHub**
+   ```bash
+   git add .
+   git commit -m "Ready for deployment"
+   git push origin main
+   ```
+
+2. **Deploy to Vercel**
+   - Go to [Vercel](https://vercel.com)
+   - Click "New Project"
+   - Import your GitHub repository
+   - Vercel will automatically detect the configuration from `vercel.json`
+   - Click "Deploy"
+
+3. **Manual Configuration (if needed)**
+   - Build Command: `npm run build`
+   - Output Directory: `dist`
+   - Install Command: `npm install`
+
+The `vercel.json` file in the root directory handles all the deployment configuration automatically.
+
+#### Other Deployment Options
+
+**Netlify:**
+- Build Command: `npm run build`
+- Publish Directory: `dist`
+
+**GitHub Pages:**
+```bash
+npm run build
+# Copy dist folder contents to gh-pages branch
+```
+
+**Custom Server:**
+```bash
+npm run build
+# Upload the dist folder to your web server
+```
+
 ## 📖 How to Use
 
 ### Basic Workflow
@@ -143,6 +188,7 @@ dayoftheweek/
 ├── try.html                # Alternative translator interface
 ├── code.gs                 # Google Apps Script integration
 ├── package.json            # Project dependencies
+├── vercel.json             # Vercel deployment configuration
 ├── webpack.common.js       # Webpack base configuration
 ├── webpack.config.dev.js   # Development configuration
 ├── webpack.config.prod.js  # Production configuration
