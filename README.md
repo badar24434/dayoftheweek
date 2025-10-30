@@ -368,15 +368,6 @@ Tested and working on:
 - ✅ Safari (latest)
 - ✅ Mobile browsers (iOS Safari, Chrome Android)
 
-## 🤝 Contributing
-
-Contributions are welcome! Here's how you can help:
-
-1. **Fork the repository**
-2. **Create a feature branch** (`git checkout -b feature/AmazingFeature`)
-3. **Commit your changes** (`git commit -m 'Add some AmazingFeature'`)
-4. **Push to the branch** (`git push origin feature/AmazingFeature`)
-5. **Open a Pull Request**
 
 ### Development Guidelines
 
@@ -395,13 +386,6 @@ This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.t
 **badar24434**
 - GitHub: [@badar24434](https://github.com/badar24434)
 
-## 🙏 Acknowledgments
-
-- Bootstrap team for the excellent framework
-- Bootstrap Icons for the comprehensive icon library
-- Google Fonts for the Inter typeface
-- Historical events database compiled from various public sources
-
 ## 📚 Additional Resources
 
 - [Day of the Week Calculation Methods](https://en.wikipedia.org/wiki/Determination_of_the_day_of_the_week)
@@ -419,12 +403,6 @@ This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.t
 - [ ] PWA support for offline usage
 - [ ] Statistics dashboard
 - [ ] Social sharing of scores
-
-## 📞 Support
-
-If you have questions or need help:
-- Open an issue on GitHub
-- Check existing documentation in the repository
 
 ## ⭐ Star History
 
